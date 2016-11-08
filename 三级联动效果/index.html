@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>省市县三级联动</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link href="" rel="stylesheet">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript">
+			//定义页面的载入事件
+			$(function(){
+				//给省份下拉列表绑定一个change方法
+				$('#province').on('change',function(){
+					//先获取省份/直辖市的地区id
+					var provinceId = $(this).val();
+					//发送ajax请求
+					$.ajax({
+						url: "{:U('getAreaByAreaId')}",
+						type: 'POST',
+						dataType: 'json',
+						data: {pid: provinceId},
+						success: function(jsonObj){
+							//转成jQuery对象使用
+							//先清空原有的城市信息 还需要清空区县信息
+							$('#city option:gt(0)').remove();
+							$('#district option:gt(0)').remove();
+							$(jsonObj).each(function(index,el){
+								//将获取到的城市数据追加到city下拉列表中
+								$('#city').append("<option value='" + el.area_id + "'>" + el.area_name + "</option>");
+							});
+						}
+					});
+				});
+				//给city添加change事件
+				$('#city').on('change',function(){
+					//先获取城市的地区id
+					var cityId = $(this).val();
+					//发送ajax请求
+					$.ajax({
+						url: "{:U('getAreaByAreaId')}",
+						type: 'POST',
+						dataType: 'json',
+						data: {pid: cityId},
+						success: function(jsonObj){
+							//清空原有的区县信息
+							$('#district option:gt(0)').remove();
+							//遍历并且追加
+							$(jsonObj).each(function(index,el){
+								//向地区下拉列表中追加数据
+								$('#district').append("<option value='" + el.area_id + "'>" + el.area_name + "</option>");
+							});
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<select id='province'>
+			<option value="-1">省份/直辖市</option>
+			<!--遍历省份/直辖市信息-->
+			<volist name='province' id='vo'>
+				<option value="{$vo.area_id}">{$vo.area_name}</option>
+			</volist>
+		</select>
+		<select id="city">
+			<option value="-1">市</option>
+		</select>
+		<select id="district">
+			<option value="-1">区/县</option>
+		</select>
+	</body>
+</html>

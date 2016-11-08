@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>网页标题</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="" />
+	<style type="text/css">
+		div,ul,li{
+			margin:0px;
+			padding:0px;
+		}
+		div{
+			border:1px solid red;
+			width:600px;
+			overflow:hidden;
+		}
+		div img{
+			float:left;
+		}
+		div ul{
+			float:right;
+		}
+		ul li{
+			list-style:none;
+			border:1px solid red;
+			width:20px;
+			height:20px;
+			margin-top:6px;
+			margin-right:39px;
+			text-align:center;
+			line-height:20px;
+		}
+	</style>
+	<script type="text/javascript">
+		//加入让图片每一秒切换一次
+		//i是用来表示图片第几张的
+		var i=1;
+		//dingshiqi变量是定时器名
+		var dingshiqi;
+		window.onload=init;
+		function init(){
+			//页面打开之后定时器开始运作
+			var obj = document.getElementById("li1");
+			obj.style.background="orange";
+			dingshiqi = window.setInterval("tupian()",1000);
+		}
+		//切换图片的函数
+		function tupian(){
+			i++;
+			if(i>6){
+				i=1;
+			}
+			//先获得img对象
+			var obj = document.getElementById("d1");
+			//改图片src
+			obj.src="images/dd_scroll_"+i+".jpg";
+			var abcli = document.getElementById("li"+i);
+			beijing();
+			abcli.style.background="orange";
+		}
+		//鼠标放到图片上停止图片动的函数
+		function tingtu(){
+			window.clearInterval(dingshiqi);
+		}
+		//鼠标离开图片让图片动起来
+		function dongtu(){
+			dingshiqi = window.setInterval("tupian()",1000);
+		}
+		//鼠标放到li上边停止图片动的函数
+		function stoptu(n,obj){//n=1,n=2
+			i=n;
+			//获取img对象
+			var abc = document.getElementById("d1");
+			abc.src="images/dd_scroll_"+n+".jpg";
+			//把所有的背景颜色都清空
+			beijing();
+			//改变背景颜色
+			obj.style.background="orange";
+			window.clearInterval(dingshiqi);
+		}
+		//鼠标离开li让图片动的函数
+		function starttu(){
+			dingshiqi = window.setInterval("tupian()",1000);
+		}
+		//清除背景颜色的函数
+		function beijing(){
+			for(var j=1;j<=6;j++){
+				var lin = document.getElementById("li"+j);
+				lin.style.background="";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<img id="d1" src="images/dd_scroll_1.jpg" onmouseover="tingtu()" onmouseout="dongtu()">
+		<ul>
+			<li id="li1" onmouseover="stoptu(1,this)" onmouseout="starttu()">1</li>
+			<li id="li2" onmouseover="stoptu(2,this)" onmouseout="starttu()">2</li>
+			<li id="li3" onmouseover="stoptu(3,this)" onmouseout="starttu()">3</li>
+			<li id="li4" onmouseover="stoptu(4,this)" onmouseout="starttu()">4</li>
+			<li id="li5" onmouseover="stoptu(5,this)" onmouseout="starttu()">5</li>
+			<li id="li6" onmouseover="stoptu(6,this)" onmouseout="starttu()">6</li>
+		</ul>
+	</div>
+</body>
+</html>

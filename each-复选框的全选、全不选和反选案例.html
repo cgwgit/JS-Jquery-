@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Examples</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link href="" rel="stylesheet">
+		<script type="text/javascript" src="./jquery-1.8.3.min.js"></script>
+		<script type="text/javascript">
+			//定义页面的载入事件
+			$(function(){
+				//给qx绑定点击事件
+				$('#qx').on('click',function(){
+					//实现全选效果
+					$('input[type="checkbox"]').attr('checked','checked');
+				})
+				//给qbx绑定点击事件
+				$('#qbx').on('click',function(){
+					//实现全不选效果
+					$('input[type="checkbox"]').removeAttr('checked');
+				});
+				//给fx绑定点击事件
+				$('#fx').on('click',function(){
+					/*
+					if(选中){
+						不选中
+					}else{
+						选中
+					}
+					*/
+					//对复选框进行遍历，逐个判断是否有被选中
+					$('input[type="checkbox"]').each(function(index,el){
+						//el是当前遍历到的dom对象
+						//console.log(el);
+						if($(el).attr('checked') == 'checked'){
+							//如果当前是选中状态，就移除checked属性
+							$(el).removeAttr('checked');
+						}else{
+							//否则，给当前遍历到的对象添加checked属性
+							$(el).attr('checked','checked');
+						}
+					});
+				});
+			})
+		</script>
+	</head>
+	
+	<body>
+		爱好：<input type="checkbox" value="1" name="hobby"/>吃饭&emsp;
+			<input type="checkbox" value="2" name="hobby"/>睡觉&emsp;
+			<input type="checkbox" value="3" name="hobby"/>打豆豆&emsp;
+			<input type="checkbox" value="4" name="hobby"/>敲代码
+		<p>
+			<input type="button" id="qx" value="全选"/>
+			<input type="button" id="qbx" value="全不选"/>
+			<input type="button" id="fx" value="反选"/>
+		</p>
+	</body>
+</html>

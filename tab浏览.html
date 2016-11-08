@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>网页标题</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="stylesheet" type="text/css" href="" />
+	<style type="text/css">
+		*{
+			margin:0px;
+			padding:0px;
+		}
+		#div1{
+			border:1px solid red;
+			width:500px;
+			height:300px;
+		}
+		ul{
+			height:60px;
+		}
+		ul li{
+			list-style:none;
+			float:left;
+			border:1px solid red;
+			width:98px;
+			height:60px;
+			line-height:60px;
+			text-align:center;
+		}
+		#d1,#d2,#d3,#d4{
+			display:none;
+		}
+		#d1{
+			display:block;
+		}
+		#li1{
+			border-bottom:none;
+		}
+	</style>
+	<script type="text/javascript">
+		//鼠标放到li上显示对应的div的函数
+		function showtu(n,nowli){
+			//显示出所有的li标签的边框
+			xs();
+			//隐藏所有的div对象之后显示对应的内容
+			yc();
+			//找到对应的要显示的div对象
+			var obj = document.getElementById("d"+n);
+			obj.style.display="block";
+			//把鼠标放到的li标签上的下边框去掉
+			nowli.style.borderBottom="1px solid white";
+		}
+		//隐藏所有的div的函数
+		function yc(){
+			for(var i=1;i<=4;i++){
+				var arrdiv = document.getElementById("d"+i);
+				arrdiv.style.display="none";
+			}
+		}
+		//显示所有的li边框
+		function xs(){
+			for(var j=1;j<=4;j++){
+				var arrli = document.getElementById("li"+j);
+				arrli.style.borderBottom="1px solid red";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<ul>
+			<li id="li1" onmouseover="showtu(1,this)">国际新闻</li>
+			<li id="li2" onmouseover="showtu(2,this)">国内新闻</li>
+			<li id="li3" onmouseover="showtu(3,this)">体育新闻</li>
+			<li id="li4" onmouseover="showtu(4,this)">娱乐新闻</li>
+			<li></li>
+		</ul>
+		<div id="d1">国际新闻<br />据说奥巴马又踹门了<br />朝鲜和某个要打起来了</div>
+		<div id="d2">国内新闻<br />听说某姐又跑去美国了<br />CCTM，MVTV，KTV各种赚钱</div>
+		<div id="d3">体育新闻<br />NBA科比詹姆斯韦德奥尔尼都好腻害<br />据说足够在某国开始被世界认可</div>
+		<div id="d4">娱乐新闻<br />跑男据说走向全世界<br />大黑牛你等着</div>
+	</div>
+</body>
+</html>
